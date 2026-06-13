@@ -66,7 +66,7 @@ export const MOCK_DELIVERIES: Delivery[] = [
     destination: '제주 서귀포시',
     estimatedArrival: '2026-06-11',
     status: 'RETURNED',
-    notes: '수취인 부재 3회 — 반송 처리',
+    notes: '수취인 부재 3회 — 반송 완료',
     history: [
       { step: 'PREPARING', timestamp: '2026-06-09 09:00', location: '고양 집화센터' },
       { step: 'IN_TRANSIT', timestamp: '2026-06-09 14:00', location: '제주항 도착' },

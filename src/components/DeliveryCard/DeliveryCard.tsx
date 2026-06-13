@@ -12,7 +12,15 @@ import {
 import { StatusBadge } from './StatusBadge';
 import { Timeline } from './Timeline';
 import { STATUS_CONFIG } from '@/constants/delivery';
-import type { Delivery } from '@/types/delivery';
+import type { Delivery, DeliveryStatus } from '@/types/delivery';
+
+const DATE_LABEL: Record<DeliveryStatus, string> = {
+  PREPARING: '도착 예정',
+  IN_TRANSIT: '도착 예정',
+  DELAYED: '도착 예정',
+  DELIVERED: '배송 완료',
+  RETURNED: '반송 완료',
+};
 
 interface DeliveryCardProps {
   delivery: Delivery;
@@ -84,6 +92,7 @@ export const DeliveryCard = memo(function DeliveryCard({
             </span>
           </div>
           <div className="flex items-center gap-1 text-xs text-slate-500 shrink-0">
+            <span>{DATE_LABEL[status]} | </span>
             <Calendar size={12} className="text-slate-400" />
             <span>{estimatedArrival}</span>
           </div>

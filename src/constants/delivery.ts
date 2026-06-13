@@ -52,10 +52,10 @@ export const STATUS_CONFIG: Record<
   },
   RETURNED: {
     label: '반송',
-    textColor: 'text-red-600',
-    bgColor: 'bg-red-50',
-    borderColor: 'border-red-200',
-    cardBorder: 'border-red-200',
+    textColor: 'text-red-700',
+    bgColor: 'bg-red-100',
+    borderColor: 'border-red-300',
+    cardBorder: 'border-red-300',
     icon: RotateCcw,
   },
 };

@@ -31,20 +31,18 @@ export const Timeline = memo(function Timeline({ delivery }: TimelineProps) {
                 {/* Step node */}
                 <div className="relative flex items-center justify-center">
                   {isCompleted ? (
-                    <CheckCircle2
-                      size={20}
-                      className="text-emerald-500"
-                      strokeWidth={2}
-                    />
+                    isReturned ? (
+                      <CheckCircle2 size={20} className="text-red-400" strokeWidth={2} />
+                    ) : (
+                      <CheckCircle2 size={20} className="text-emerald-500" strokeWidth={2} />
+                    )
                   ) : isCurrent ? (
                     isDelayed ? (
-                      <AlertTriangle
-                        size={20}
-                        className="text-orange-500"
-                        strokeWidth={2}
-                      />
+                      <AlertTriangle size={20} className="text-orange-500" strokeWidth={2} />
                     ) : isReturned ? (
-                      <Circle size={20} className="text-red-300" strokeWidth={2} />
+                      <div className="w-5 h-5 rounded-full border-2 border-red-400 bg-red-400 flex items-center justify-center">
+                        <div className="w-2 h-2 rounded-full bg-white" />
+                      </div>
                     ) : (
                       <div className="w-5 h-5 rounded-full border-2 border-blue-500 bg-blue-500 flex items-center justify-center">
                         <div className="w-2 h-2 rounded-full bg-white" />
@@ -59,17 +57,19 @@ export const Timeline = memo(function Timeline({ delivery }: TimelineProps) {
                 <span
                   className={`mt-1.5 text-xs text-center leading-tight ${
                     isCompleted
-                      ? 'text-emerald-600 font-medium'
+                      ? isReturned
+                        ? 'text-red-400 font-medium'
+                        : 'text-emerald-600 font-medium'
                       : isCurrent
                         ? isDelayed
                           ? 'text-orange-600 font-semibold'
                           : isReturned
-                            ? 'text-red-400 font-medium'
+                            ? 'text-red-500 font-semibold'
                             : 'text-blue-600 font-semibold'
                         : 'text-slate-300'
                   }`}
                 >
-                  {step.label}
+                  {step.key === 'DELIVERED' && isReturned ? '반송 완료' : step.label}
                 </span>
 
                 {/* Timestamp */}
@@ -84,7 +84,11 @@ export const Timeline = memo(function Timeline({ delivery }: TimelineProps) {
               {index < TIMELINE_STEPS.length - 1 && (
                 <div
                   className={`flex-1 h-0.5 mt-2.5 mx-1 rounded ${
-                    index < activeIndex ? 'bg-emerald-400' : 'bg-slate-100'
+                    index < activeIndex
+                      ? isReturned
+                        ? 'bg-red-300'
+                        : 'bg-emerald-400'
+                      : 'bg-slate-100'
                   }`}
                 />
               )}
