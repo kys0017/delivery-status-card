@@ -28,22 +28,27 @@ npm run deploy  # GitHub Pages 배포
 
 ```
 routes/
-  index.tsx      — 대시보드 페이지 + 필터 상태(URL search params) 관리
-                   loader(데이터 패치) + pendingComponent(스켈레톤) 포함
-DeliveryCard/
-  StatusBadge    — 상태 표시 배지 (단일 책임, 재사용 가능)
-  Timeline       — 배송 단계 시각화 (복잡도 분리)
-  DeliveryCard   — 카드 컨테이너 + 확장 로직
-DeliveryList/
-  DeliveryFilter — 필터 탭 (카운트 표시 포함)
-  DeliveryList   — 목록 렌더링 (filter prop을 외부에서 수신)
-Skeleton/
-  DeliveryCardSkeleton — 카드 로딩 플레이스홀더 (animate-pulse)
+  index.tsx      — Route 설정만 담당 (loader, pendingComponent, validateSearch, component 연결)
+components/
+  Dashboard/
+    DashboardPage     — 대시보드 페이지 + 필터 상태(URL search params) 관리
+    PendingDashboard  — 로딩 중 스켈레톤 화면
+  DeliveryCard/
+    StatusBadge    — 상태 표시 배지 (단일 책임, 재사용 가능)
+    Timeline       — 배송 단계 시각화 (복잡도 분리)
+    DeliveryCard   — 카드 컨테이너 + 확장 로직
+  DeliveryList/
+    DeliveryFilter — 필터 탭 (카운트 표시 포함)
+    DeliveryList   — 목록 렌더링 (filter prop을 외부에서 수신)
+  Skeleton/
+    DeliveryCardSkeleton — 카드 로딩 플레이스홀더 (animate-pulse)
 ```
 
 **StatusBadge를 별도 파일로 분리한 이유**: 상태 배지는 카드 외에 목록 헤더, 상세 페이지 등 여러 곳에서 쓰일 가능성이 높다. 컴포넌트를 교체하거나 디자인을 변경할 때 단일 파일만 수정하면 되도록 미리 분리했다.
 
 **Timeline을 분리한 이유**: 타임라인 렌더링 로직(단계 인덱스 계산, 지연/반송 분기)이 카드 자체 로직과 성격이 다르다. 카드 파일에 인라인으로 뒀다면 두 관심사가 섞여 수정 시 영향 범위 추적이 어려워진다.
+
+**라우트 파일에서 페이지 컴포넌트를 분리한 이유**: `routes/index.tsx`가 `Route`와 컴포넌트(`PendingDashboard`, `DashboardPage`)를 함께 export하면 Vite Fast Refresh가 컴포넌트 상태를 보존하지 못한다(`react-refresh/only-export-components` 경고). 라우트 파일은 라우트 설정만 export하도록 분리하고, 실제 페이지 컴포넌트는 `components/Dashboard/`로 옮겼다.
 
 ### 인터랙션: Inline Expand 선택
 
@@ -55,7 +60,7 @@ Accordion 방식을 택한 이유는 운영 환경의 특성 때문이다. 모�
 
 필터 상태는 TanStack Router의 URL search params(`?status=DELAYED`)로 관리한다. 컴포넌트 내부 `useState`로 뒀을 때와 달리 브라우저 뒤로가기로 이전 필터를 복원할 수 있고, URL 공유 시 동일한 필터 뷰가 재현된다. `DeliveryList`는 필터 로직을 갖지 않고 `filter` prop을 수신해 렌더링만 담당한다.
 
-초기 데이터 로딩은 TanStack Router의 `loader` + `pendingComponent` 패턴으로 처리한다. `useEffect` + `useState`로 로딩 상태를 수동 관리하는 대신, 라우터가 `loader` 완료 전까지 `PendingDashboard`(스켈레톤 UI)를 자동으로 렌더링하고 완료 시 실제 컴포넌트로 교체한다. 데이터는 `Route.useLoaderData()`로 수신해 prop drilling 없이 컴포넌트에서 직접 사용한다.
+초기 데이터 로딩은 TanStack Router의 `loader` + `pendingComponent` 패턴으로 처리한다. `useEffect` + `useState`로 로딩 상태를 수동 관리하는 대신, 라우터가 `loader` 완료 전까지 `PendingDashboard`(스켈레톤 UI)를 자동으로 렌더링하고 완료 시 실제 컴포넌트로 교체한다. 데이터는 `getRouteApi('/').useLoaderData()`로 수신해 prop drilling 없이 컴포넌트에서 직접 사용한다. `Route.useLoaderData()` 대신 `getRouteApi`를 쓰는 이유는 `DashboardPage`가 `routes/index.tsx`가 아닌 별도 파일에 있기 때문이다 — `Route`를 직접 import하면 라우트 파일과 페이지 컴포넌트 파일이 서로를 참조하는 순환 의존성이 생기는데, `getRouteApi(routeId)`는 라우트 ID로 런타임에 훅을 바인딩해 이 문제를 피한다.
 
 ### 색상 및 타이포그래피
 
