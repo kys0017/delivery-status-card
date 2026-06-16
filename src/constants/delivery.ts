@@ -9,6 +9,7 @@ export const STATUS_CONFIG: Record<
     bgColor: string;
     borderColor: string;
     cardBorder: string;
+    hoverBg: string;
     icon: typeof Truck;
   }
 > = {
@@ -18,6 +19,7 @@ export const STATUS_CONFIG: Record<
     bgColor: 'bg-slate-100',
     borderColor: 'border-slate-200',
     cardBorder: 'border-slate-200',
+    hoverBg: 'hover:bg-slate-200',
     icon: Package,
   },
   IN_TRANSIT: {
@@ -26,6 +28,7 @@ export const STATUS_CONFIG: Record<
     bgColor: 'bg-blue-50',
     borderColor: 'border-blue-200',
     cardBorder: 'border-blue-200',
+    hoverBg: 'hover:bg-blue-100',
     icon: Truck,
   },
   DELIVERED: {
@@ -34,6 +37,7 @@ export const STATUS_CONFIG: Record<
     bgColor: 'bg-emerald-50',
     borderColor: 'border-emerald-200',
     cardBorder: 'border-emerald-200',
+    hoverBg: 'hover:bg-emerald-100',
     icon: CheckCircle2,
   },
   DELAYED: {
@@ -42,6 +46,7 @@ export const STATUS_CONFIG: Record<
     bgColor: 'bg-orange-50',
     borderColor: 'border-orange-300',
     cardBorder: 'border-orange-300',
+    hoverBg: 'hover:bg-orange-100',
     icon: AlertTriangle,
   },
   RETURNED: {
@@ -50,6 +55,7 @@ export const STATUS_CONFIG: Record<
     bgColor: 'bg-red-100',
     borderColor: 'border-red-300',
     cardBorder: 'border-red-300',
+    hoverBg: 'hover:bg-red-200',
     icon: RotateCcw,
   },
 };

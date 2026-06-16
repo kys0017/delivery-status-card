@@ -35,14 +35,12 @@ export const DeliveryFilter = memo(function DeliveryFilter({
 
         let activeClass: string;
         if (isActive) {
-          if (key === 'ALL') {
-            activeClass = 'bg-slate-800 text-white border-slate-800';
-          } else {
-            const cfg = STATUS_CONFIG[key as DeliveryStatus];
-            activeClass = `${cfg.bgColor} ${cfg.textColor} ${cfg.borderColor}`;
-          }
+          activeClass = 'bg-slate-800 text-white border-slate-800';
+        } else if (key === 'ALL') {
+          activeClass = 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200';
         } else {
-          activeClass = 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50';
+          const cfg = STATUS_CONFIG[key as DeliveryStatus];
+          activeClass = `${cfg.bgColor} ${cfg.textColor} ${cfg.borderColor} ${cfg.hoverBg}`;
         }
 
         return (
