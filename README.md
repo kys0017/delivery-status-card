@@ -4,13 +4,20 @@
 
 ---
 
+## 데모
+
+https://kys0017.github.io/delivery-status-card/
+
+---
+
 ## 실행 방법
 
 ```bash
 # Node.js 22+ 필요
 nvm use 22
 npm install
-npm run dev
+npm run dev   # http://localhost:5173
+npm run deploy  # GitHub Pages 배포
 ```
 
 ---
@@ -22,6 +29,7 @@ npm run dev
 ```
 routes/
   index.tsx      — 대시보드 페이지 + 필터 상태(URL search params) 관리
+                   loader(데이터 패치) + pendingComponent(스켈레톤) 포함
 DeliveryCard/
   StatusBadge    — 상태 표시 배지 (단일 책임, 재사용 가능)
   Timeline       — 배송 단계 시각화 (복잡도 분리)
@@ -30,7 +38,7 @@ DeliveryList/
   DeliveryFilter — 필터 탭 (카운트 표시 포함)
   DeliveryList   — 목록 렌더링 (filter prop을 외부에서 수신)
 Skeleton/
-  DeliveryCardSkeleton — 로딩 플레이스홀더
+  DeliveryCardSkeleton — 카드 로딩 플레이스홀더 (animate-pulse)
 ```
 
 **StatusBadge를 별도 파일로 분리한 이유**: 상태 배지는 카드 외에 목록 헤더, 상세 페이지 등 여러 곳에서 쓰일 가능성이 높다. 컴포넌트를 교체하거나 디자인을 변경할 때 단일 파일만 수정하면 되도록 미리 분리했다.
@@ -46,6 +54,8 @@ Accordion 방식을 택한 이유는 운영 환경의 특성 때문이다. 모�
 전역 상태 라이브러리 없이 `useState`와 `useMemo`만 사용했다. 현재 요구사항이 목록 렌더링과 필터링, 카드 확장 세 가지뿐이라 컴포넌트 로컬 상태로 충분하다. 카드 각각의 확장 상태를 상위로 끌어올리지 않은 이유는 두 카드가 동시에 열려도 문제 없고, 카드 간 상태 동기화가 필요한 기능이 없기 때문이다.
 
 필터 상태는 TanStack Router의 URL search params(`?status=DELAYED`)로 관리한다. 컴포넌트 내부 `useState`로 뒀을 때와 달리 브라우저 뒤로가기로 이전 필터를 복원할 수 있고, URL 공유 시 동일한 필터 뷰가 재현된다. `DeliveryList`는 필터 로직을 갖지 않고 `filter` prop을 수신해 렌더링만 담당한다.
+
+초기 데이터 로딩은 TanStack Router의 `loader` + `pendingComponent` 패턴으로 처리한다. `useEffect` + `useState`로 로딩 상태를 수동 관리하는 대신, 라우터가 `loader` 완료 전까지 `PendingDashboard`(스켈레톤 UI)를 자동으로 렌더링하고 완료 시 실제 컴포넌트로 교체한다. 데이터는 `Route.useLoaderData()`로 수신해 prop drilling 없이 컴포넌트에서 직접 사용한다.
 
 ### 색상 및 타이포그래피
 
@@ -67,7 +77,7 @@ Accordion 방식을 택한 이유는 운영 환경의 특성 때문이다. 모�
 
 ### 구현하지 못한 것
 
-- **실시간 업데이트**: 폴링이나 WebSocket 연결 없이 정적 목 데이터만 사용. 실제 운영 환경이라면 `useQuery` + 폴링 간격 설정이 필요하다.
+- **실시간 업데이트**: 폴링이나 WebSocket 연결 없이 정적 목 데이터만 사용. 실제 운영 환경이라면 `loader`를 실제 API 호출로 교체하고 `useQuery` + 폴링 간격 설정이 필요하다.
 - **가상화(Virtualization)**: 수천 건 목록을 렌더링할 경우 `react-window` 또는 TanStack Virtual이 필요하다. 현재는 8건이라 불필요했지만, 스케일업 시 첫 번째 병목이 된다.
 - **정렬**: 상태 필터만 있고 ETA 기준 정렬 등은 없다. 운영 현장에서는 지연 건을 상단에 고정하는 정렬이 실용적이다.
 - **키보드 네비게이션**: 카드 확장 토글에 `aria-expanded`와 포커스 관리를 넣었지만 목록 수준의 키보드 탐색(위/아래 화살표)은 구현하지 않았다.
