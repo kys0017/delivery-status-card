@@ -54,9 +54,7 @@ export const MOCK_DELIVERIES: Delivery[] = [
     destination: '울산 남구',
     estimatedArrival: '2026-06-13',
     status: 'PREPARING',
-    history: [
-      { step: 'PREPARING', timestamp: '2026-06-11 16:00', location: '대전 집화센터' },
-    ],
+    history: [{ step: 'PREPARING', timestamp: '2026-06-11 16:00', location: '대전 집화센터' }],
   },
   {
     id: '5',

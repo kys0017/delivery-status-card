@@ -1,10 +1,4 @@
-import {
-  Package,
-  Truck,
-  CheckCircle2,
-  AlertTriangle,
-  RotateCcw,
-} from 'lucide-react';
+import { Package, Truck, CheckCircle2, AlertTriangle, RotateCcw } from 'lucide-react';
 import type { DeliveryStatus, TimelineStep } from '@/types/delivery';
 
 export const STATUS_CONFIG: Record<

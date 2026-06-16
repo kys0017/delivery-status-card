@@ -25,10 +25,7 @@ export const DeliveryFilter = memo(function DeliveryFilter({
   counts,
   onChange,
 }: DeliveryFilterProps) {
-  const handleClick = useCallback(
-    (key: FilterOption) => () => onChange(key),
-    [onChange],
-  );
+  const handleClick = useCallback((key: FilterOption) => () => onChange(key), [onChange]);
 
   return (
     <div className="flex items-center gap-2 flex-wrap">
@@ -36,7 +33,7 @@ export const DeliveryFilter = memo(function DeliveryFilter({
         const isActive = selected === key;
         const count = counts[key] ?? 0;
 
-        let activeClass = '';
+        let activeClass: string;
         if (isActive) {
           if (key === 'ALL') {
             activeClass = 'bg-slate-800 text-white border-slate-800';

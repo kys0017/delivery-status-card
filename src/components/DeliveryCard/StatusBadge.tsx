@@ -7,16 +7,11 @@ interface StatusBadgeProps {
   size?: 'sm' | 'md';
 }
 
-export const StatusBadge = memo(function StatusBadge({
-  status,
-  size = 'md',
-}: StatusBadgeProps) {
+export const StatusBadge = memo(function StatusBadge({ status, size = 'md' }: StatusBadgeProps) {
   const config = STATUS_CONFIG[status];
   const Icon = config.icon;
 
-  const sizeClass = size === 'sm'
-    ? 'text-xs px-2 py-0.5 gap-1'
-    : 'text-sm px-2.5 py-1 gap-1.5';
+  const sizeClass = size === 'sm' ? 'text-xs px-2 py-0.5 gap-1' : 'text-sm px-2.5 py-1 gap-1.5';
 
   const iconSize = size === 'sm' ? 12 : 14;
 

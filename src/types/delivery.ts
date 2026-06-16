@@ -1,9 +1,4 @@
-export type DeliveryStatus =
-  | 'PREPARING'
-  | 'IN_TRANSIT'
-  | 'DELIVERED'
-  | 'DELAYED'
-  | 'RETURNED';
+export type DeliveryStatus = 'PREPARING' | 'IN_TRANSIT' | 'DELIVERED' | 'DELAYED' | 'RETURNED';
 
 export type TimelineStep = 'PREPARING' | 'IN_TRANSIT' | 'DELIVERED';
 

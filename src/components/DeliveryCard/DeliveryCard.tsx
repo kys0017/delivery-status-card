@@ -26,15 +26,12 @@ interface DeliveryCardProps {
   delivery: Delivery;
 }
 
-export const DeliveryCard = memo(function DeliveryCard({
-  delivery,
-}: DeliveryCardProps) {
+export const DeliveryCard = memo(function DeliveryCard({ delivery }: DeliveryCardProps) {
   const [expanded, setExpanded] = useState(false);
 
   const toggle = useCallback(() => setExpanded((prev) => !prev), []);
 
-  const { status, trackingNumber, recipient, origin, destination, estimatedArrival } =
-    delivery;
+  const { status, trackingNumber, recipient, origin, destination, estimatedArrival } = delivery;
   const config = STATUS_CONFIG[status];
   const isDelayed = status === 'DELAYED';
 
