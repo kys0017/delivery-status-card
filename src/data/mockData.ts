@@ -9,7 +9,7 @@ export const MOCK_DELIVERIES: Delivery[] = [
     destination: '부산 해운대구',
     estimatedArrival: '2026-06-12',
     status: 'IN_TRANSIT',
-    driver: { name: '김철수', phone: '010-1234-5678' },
+    driver: { name: '김철수', phone: '010-1234-56xx' },
     notes: '문 앞 배송 요청',
     history: [
       { step: 'PREPARING', timestamp: '2026-06-11 09:00', location: '서울 강남 집화센터' },
@@ -25,7 +25,7 @@ export const MOCK_DELIVERIES: Delivery[] = [
     estimatedArrival: '2026-06-12',
     status: 'DELAYED',
     delayReason: '기상 악화(폭우)로 인한 운송 지연',
-    driver: { name: '박민준', phone: '010-9876-5432' },
+    driver: { name: '박민준', phone: '010-9876-54xx' },
     history: [
       { step: 'PREPARING', timestamp: '2026-06-11 08:00', location: '인천 집화센터' },
       { step: 'IN_TRANSIT', timestamp: '2026-06-11 11:00', location: '대전 허브터미널' },
@@ -39,7 +39,7 @@ export const MOCK_DELIVERIES: Delivery[] = [
     destination: '광주 북구',
     estimatedArrival: '2026-06-11',
     status: 'DELIVERED',
-    driver: { name: '최동현', phone: '010-5555-7777' },
+    driver: { name: '최동현', phone: '010-5555-77xx' },
     history: [
       { step: 'PREPARING', timestamp: '2026-06-10 10:00', location: '수원 집화센터' },
       { step: 'IN_TRANSIT', timestamp: '2026-06-10 15:00', location: '광주 허브터미널' },
@@ -78,7 +78,7 @@ export const MOCK_DELIVERIES: Delivery[] = [
     destination: '춘천 소양강구',
     estimatedArrival: '2026-06-12',
     status: 'IN_TRANSIT',
-    driver: { name: '오태양', phone: '010-2222-3333' },
+    driver: { name: '오태양', phone: '010-2222-33xx' },
     history: [
       { step: 'PREPARING', timestamp: '2026-06-11 10:00', location: '성남 집화센터' },
       { step: 'IN_TRANSIT', timestamp: '2026-06-11 14:00', location: '가평 이동 중' },
@@ -93,7 +93,7 @@ export const MOCK_DELIVERIES: Delivery[] = [
     estimatedArrival: '2026-06-12',
     status: 'DELAYED',
     delayReason: '차량 고장으로 인한 배송 지연',
-    driver: { name: '이상훈', phone: '010-6666-9999' },
+    driver: { name: '이상훈', phone: '010-6666-99xx' },
     history: [
       { step: 'PREPARING', timestamp: '2026-06-11 08:30', location: '청주 집화센터' },
       { step: 'IN_TRANSIT', timestamp: '2026-06-11 12:00', location: '익산 허브터미널' },
@@ -107,7 +107,7 @@ export const MOCK_DELIVERIES: Delivery[] = [
     destination: '포항 남구',
     estimatedArrival: '2026-06-11',
     status: 'DELIVERED',
-    driver: { name: '장호준', phone: '010-4444-8888' },
+    driver: { name: '장호준', phone: '010-4444-88xx' },
     history: [
       { step: 'PREPARING', timestamp: '2026-06-10 09:00', location: '창원 집화센터' },
       { step: 'IN_TRANSIT', timestamp: '2026-06-10 13:00', location: '경주 이동 중' },

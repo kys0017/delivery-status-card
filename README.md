@@ -14,6 +14,8 @@ https://kys0017.github.io/delivery-status-card/
 
 실무 과제 가이드라인에서 추출한 요구사항([`docs/requirements-prompt.md`](docs/requirements-prompt.md))을 바탕으로 Claude Code로 구현. 스택 설정을 제외한 컴포넌트 설계, 스타일링, 리팩터링, README 작성 등 전 과정을 Claude Code와의 대화로 진행. UI를 직접 확인하며 필요한 부분을 수정, 변경이 생길 때마다 README를 즉시 현행화.
 
+별도 디자인 시안 없이 구현을 선행한 뒤 UI를 사후 문서화. 와이어프레임·컴포넌트 상태 명세 등 디자인 문서는 구현 결과를 기반으로 정리한 UI 명세이며, [claude.ai/design](https://claude.ai/design)으로 생성.
+
 ---
 
 ## 스택
