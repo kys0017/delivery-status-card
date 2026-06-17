@@ -10,6 +10,19 @@ https://kys0017.github.io/delivery-status-card/
 
 ---
 
+## 스택
+
+| 분류 | 기술 |
+|------|------|
+| 프레임워크 | React 19 + TypeScript |
+| 빌드 | Vite 8 (Node 22+ 필요) |
+| 라우팅 | TanStack Router v1 (파일 기반, `routeTree.gen.ts` 자동 생성) |
+| 스타일 | Tailwind CSS v4 (`@tailwindcss/vite` 플러그인, 설정 파일 없음) |
+| 아이콘 | lucide-react |
+| 경로 별칭 | `@/` → `src/` |
+
+---
+
 ## 실행 방법
 
 ```bash
